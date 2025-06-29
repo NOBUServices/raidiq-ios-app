@@ -14,8 +14,8 @@ jobs:
       run: |
         xcodebuild -scheme RaidIQApp -destination generic/platform=iOS -archivePath ${{ github.workspace }}/build/RaidIQApp.xcarchive archive
         xcodebuild -exportArchive -archivePath ${{ github.workspace }}/build/RaidIQApp.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath ${{ github.workspace }}/build
-    - name: Upload .ipa
-      uses: actions/upload-artifact@v3
+- name: Upload .ipa
+  uses: actions/upload-artifact@v4
       with:
         name: raidiq.ipa
         path: build/*.ipa
