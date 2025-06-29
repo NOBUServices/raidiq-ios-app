@@ -7,17 +7,18 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Xcode
-      run: sudo xcode-select -s /Applications/Xcode_15.0.app
-    - name: Build .ipa
-      run: |
-        xcodebuild -scheme RaidIQApp -destination generic/platform=iOS -archivePath ${{ github.workspace }}/build/RaidIQApp.xcarchive archive
-        xcodebuild -exportArchive -archivePath ${{ github.workspace }}/build/RaidIQApp.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath ${{ github.workspace }}/build
-- name: Upload .ipa
-  uses: actions/upload-artifact@v4
-      with:
-        name: raidiq.ipa
-        path: build/*.ipa
+      - uses: actions/checkout@v3
 
-# triggering workflow indexing
+      - name: Set up Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.0.app
+
+      - name: Build .ipa
+        run: |
+          xcodebuild -scheme RaidIQApp -destination generic/platform=iOS -archivePath ${{ github.workspace }}/build/RaidIQApp.xcarchive archive
+          xcodebuild -exportArchive -archivePath ${{ github.workspace }}/build/RaidIQApp.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath ${{ github.workspace }}/build
+
+      - name: Upload .ipa
+        uses: actions/upload-artifact@v4
+        with:
+          name: raidiq.ipa
+          path: build/*.ipa
